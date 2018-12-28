@@ -25,6 +25,18 @@ h2 {
 	@extend .govuk-heading-m;
 }
 
+ul {
+	@extend .govuk-list;
+	@extend .govuk-list--bullet;
+}
+
+.app-related-items {
+	ul {
+		@extend .govuk-list;
+		@extend .govuk-body-s;
+	}
+}
+
 // Custom
 .side-nav {
 	border-top: 2px solid #005ea5;

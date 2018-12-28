@@ -10,6 +10,7 @@ const nunjucks = require('nunjucks')
 const sessionInCookie = require('client-sessions')
 const sessionInMemory = require('express-session')
 const cookieParser = require('cookie-parser')
+const ClientOAuth2 = require('client-oauth2')
 
 //add markdown parser
 const markdown = require('nunjucks-markdown')
@@ -41,10 +42,24 @@ try {
 const app = express()
 const documentationApp = express()
 
+
 if (useV6) {
   console.log('/app/v6/routes.js detected - using v6 compatibility mode')
   v6App = express()
 }
+
+
+// Setup oauth2 client for content api
+
+// var contomicAuth = new ClientOAuth2({
+//   clientId: process.env.CONTOMIC_CLIENT_ID,
+//   clientSecret: process.env.CONTOMIC_CLIENT_SECRET,
+//   accessTokenUri: process.env.CONTOMIC_TOKEN_URI,
+//   authorizationUri: process.env.CONTOMIC_AUTH_URI,
+//   redirectUri: process.env.CONTOMIC_REDIRECT_URI,
+//   scopes: ['squidex-api']
+// })
+
 
 // Set cookies for use in cookie banner.
 app.use(cookieParser())
