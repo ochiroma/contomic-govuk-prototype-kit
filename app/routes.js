@@ -60,12 +60,18 @@ router.get('/error', function(req, res, next) {
   var tokenExpiryDate = moment(tokenCreatedDate).add(30, 'days').format('YYYY-MM-DD')
   // res.send('today:' + today + ' - expiry date:' + tokenExpiryDate);
   if (moment(today).isAfter(tokenExpiryDate)){
-  	res.send('Contomic API access has expired, please contact info@gulpdigital.com for assistance <br>' + 
-  		'today:' + today + ' - expiry date:' + tokenExpiryDate);
-  } else if (!tokenCreatedDate){
-  		'No Contomic API Token created date present, please contact info@gulpdigital.com for assistance'
+  	// res.send('Contomic API access has expired, please contact info@gulpdigital.com for assistance <br>' + 
+  	// 	'today:' + today + ' - expiry date:' + tokenExpiryDate);
+  	// res.render('error', { content : error{ message: 'Contomic trial expired'} });
+  	res.render('error', { content : {error: {message: "Contomic trial expired"}}});
+  } else if (!process.env.CONTOMIC_ACCESS_TOKEN_DATE){
+  		res.render('error', { content : {error: {message: "CONTOMIC_ACCESS_TOKEN_DATE missing"}}});
+  		// 'No Contomic API Token created date present, please contact info@gulpdigital.com for assistance'
   } else {
-  	return res.sendStatus(500);
+  	// return res.sendStatus(500);
+  	// res.send({ content : {error: [{message: "My error message"}]}});
+  	// { content : {error: [{message: My error message}]}}
+  	res.render('error', { content : {error: {message: "Internal server error"}}});
   }
 });
 
